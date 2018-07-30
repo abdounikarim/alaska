@@ -115,4 +115,13 @@ class User implements UserInterface
     public function eraseCredentials()
     {
     }
+
+    /**
+     * @param mixed $roles
+     */
+    public function setRoles($roles): void
+    {
+        $this->roles = $roles;
+    }
+
 }
