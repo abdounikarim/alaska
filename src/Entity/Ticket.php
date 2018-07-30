@@ -97,11 +97,6 @@ class Ticket
      */
     public function getPublished()
     {
-        if($this->published == 1){
-            $this->published = 'Oui';
-        } else{
-            $this->published = 'Non';
-        }
         return $this->published;
     }
 

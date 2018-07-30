@@ -4,6 +4,8 @@ namespace App\Form;
 
 use App\Entity\Ticket;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -18,10 +20,13 @@ class TicketType extends AbstractType
             ->add('createdAt')
             ->add('updatedAt')
             ->add('image', FileType::class, [
-                'data_class' => null
+                'data_class' => null,
+                'required' => false
             ])
             ->add('alt')
-            ->add('published')
+            ->add('published', CheckboxType::class, [
+                'required' => false
+            ])
         ;
     }
 

@@ -53,15 +53,24 @@ class TicketController extends Controller
     /**
      * @Route("/{id}/edit", name="ticket_edit", methods="GET|POST")
      */
-    public function edit(Request $request, Ticket $ticket): Response
+    public function edit(Request $request, Ticket $ticket, FileUploader $fileUploader): Response
     {
+        $imageOld = $ticket->getImage();
         $form = $this->createForm(TicketType::class, $ticket);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $image = $form['image']->getData();
+            dump($image);
+            if($image != null) {
+                $imageName = $fileUploader->upload($image);
+                $ticket->setImage($imageName);
+            } else {
+                $ticket->setImage($imageOld);
+            }
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('ticket_edit', ['id' => $ticket->getId()]);
+            //return $this->redirectToRoute('ticket_edit', ['id' => $ticket->getId()]);
         }
 
         return $this->render('ticket/edit.html.twig', [
@@ -81,6 +90,6 @@ class TicketController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('ticket_index');
+        return $this->redirectToRoute('home');
     }
 }

@@ -29,7 +29,7 @@
             </tr>
             <tr>
                 <th>Image</th>
-                <td><img src="{{ asset('images/'~ ticket.image ) }}" </td>
+                <td><img src="{{ asset('images/' ~ ticket.image ) }}" </td>
             </tr>
             <tr>
                 <th>Alt</th>
@@ -37,7 +37,13 @@
             </tr>
             <tr>
                 <th>Publié</th>
-                <td>{{ ticket.published }}</td>
+                <td>
+                    {% if ticket.published == 1 %}
+                        Oui
+                    {% else %}
+                        Non
+                    {% endif %}
+                </td>
             </tr>
         </tbody>
     </table>
