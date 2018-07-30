@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Ticket;
 use App\Form\TicketType;
 use App\Repository\TicketRepository;
+use App\Service\FileUploader;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,28 +17,23 @@ use Symfony\Component\Routing\Annotation\Route;
 class TicketController extends Controller
 {
     /**
-     * @Route("/", name="ticket_index", methods="GET")
-     */
-    public function index(TicketRepository $ticketRepository): Response
-    {
-        return $this->render('ticket/index.html.twig', ['tickets' => $ticketRepository->findAll()]);
-    }
-
-    /**
      * @Route("/new", name="ticket_new", methods="GET|POST")
      */
-    public function new(Request $request): Response
+    public function new(Request $request, FileUploader $fileUploader): Response
     {
         $ticket = new Ticket();
         $form = $this->createForm(TicketType::class, $ticket);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $image = $form['image']->getData();
+            $imageName = $fileUploader->upload($image);
+            $ticket->setImage($imageName);
             $em = $this->getDoctrine()->getManager();
             $em->persist($ticket);
             $em->flush();
 
-            return $this->redirectToRoute('ticket_index');
+            return $this->redirectToRoute('home');
         }
 
         return $this->render('ticket/new.html.twig', [

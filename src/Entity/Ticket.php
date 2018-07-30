@@ -29,6 +29,11 @@ class Ticket
     private $content;
 
     /**
+     * @ORM\Column(type="boolean")
+     */
+    private $published;
+
+    /**
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
@@ -37,6 +42,16 @@ class Ticket
      * @ORM\Column(type="datetime")
      */
     private $updatedAt;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $image;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $alt;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="ticket")
@@ -75,6 +90,27 @@ class Ticket
         $this->content = $content;
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPublished()
+    {
+        if($this->published == 1){
+            $this->published = 'Oui';
+        } else{
+            $this->published = 'Non';
+        }
+        return $this->published;
+    }
+
+    /**
+     * @param mixed $published
+     */
+    public function setPublished($published): void
+    {
+        $this->published = $published;
     }
 
     public function getCreatedAt(): ?\DateTimeInterface
@@ -130,5 +166,37 @@ class Ticket
         }
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param mixed $image
+     */
+    public function setImage($image): void
+    {
+        $this->image = $image;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAlt()
+    {
+        return $this->alt;
+    }
+
+    /**
+     * @param mixed $alt
+     */
+    public function setAlt($alt): void
+    {
+        $this->alt = $alt;
     }
 }

@@ -27,10 +27,22 @@
                 <th>UpdatedAt</th>
                 <td>{{ ticket.updatedAt ? ticket.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
+            <tr>
+                <th>Image</th>
+                <td><img src="{{ asset('images/'~ ticket.image ) }}" </td>
+            </tr>
+            <tr>
+                <th>Alt</th>
+                <td>{{ ticket.alt }}</td>
+            </tr>
+            <tr>
+                <th>Publié</th>
+                <td>{{ ticket.published }}</td>
+            </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('ticket_index') }}">back to list</a>
+    <a href="{{ path('home') }}">back to list</a>
 
     <a href="{{ path('ticket_edit', {'id': ticket.id}) }}">edit</a>
 
