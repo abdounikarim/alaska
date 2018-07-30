@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Ticket;
+use App\Entity\User;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -26,6 +28,10 @@ class TicketType extends AbstractType
             ->add('alt')
             ->add('published', CheckboxType::class, [
                 'required' => false
+            ])
+            ->add('author', EntityType::class, [
+                'class' => User::class,
+                'choice_label' => 'username'
             ])
         ;
     }
