@@ -26,7 +26,7 @@ class TicketController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $image = $form['image']->getData();
+            $image = $ticket->getImage();
             $imageName = $fileUploader->upload($image);
             $ticket->setImage($imageName);
             $em = $this->getDoctrine()->getManager();
@@ -60,8 +60,7 @@ class TicketController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $image = $form['image']->getData();
-            dump($image);
+            $image = $ticket->getImage();
             if($image != null) {
                 $imageName = $fileUploader->upload($image);
                 $ticket->setImage($imageName);
@@ -70,7 +69,7 @@ class TicketController extends Controller
             }
             $this->getDoctrine()->getManager()->flush();
 
-            //return $this->redirectToRoute('ticket_edit', ['id' => $ticket->getId()]);
+            return $this->redirectToRoute('ticket_edit', ['id' => $ticket->getId()]);
         }
 
         return $this->render('ticket/edit.html.twig', [
