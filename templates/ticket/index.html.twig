@@ -16,16 +16,16 @@
     {% endif %}
     <h2>Liste des billets</h2>
     {% for ticket in tickets %}
-                <h3>{{ ticket.title }}</h3>
-                <p>{{ ticket.content }}</p>
-                <span>{{ ticket.createdAt ? ticket.createdAt|date('Y-m-d H:i:s') : '' }}</span>
-                <span>{{ ticket.updatedAt ? ticket.updatedAt|date('Y-m-d H:i:s') : '' }}</span>
-                {% if is_granted('ROLE_ADMIN') %}
-                <p>
-                    <a href="{{ path('ticket_show', {'id': ticket.id}) }}">show</a>
-                    <a href="{{ path('ticket_edit', {'id': ticket.id}) }}">edit</a>
-                </p>
-                {% endif %}
+            <h3>{{ ticket.id }}. {{ ticket.title }}</h3>
+            <p>{{ ticket.content }}</p>
+            <span>Publié le {{ ticket.createdAt ? ticket.createdAt|date('d/m/Y H:i:s') : '' }}</span>
+            <span>Mis à jour le {{ ticket.updatedAt ? ticket.updatedAt|date('d/m/Y H:i:s') : '' }}</span>
+            <p><a href="{{ path('ticket_show', {'id': ticket.id}) }}">Lire la suite</a></p>
+            {% if is_granted('ROLE_ADMIN') %}
+            <p>
+                <a href="{{ path('ticket_edit', {'id': ticket.id}) }}">Modifier le billet</a>
+            </p>
+            {% endif %}
         {% else %}
             <div class="alert alert-warning" role="alert">
                 Aucun billet pour le moment
