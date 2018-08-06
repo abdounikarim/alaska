@@ -3,42 +3,33 @@
 {% block title %}Liste des billets{% endblock %}
 
 {% block body %}
+    <div class="container-fluid">
     <i class="far fa-snowflake fa-2x"></i>
     <h1>Billet simple pour l'Alaska</h1>
-    <p>Jean Forteroche</p>
-    <h2>Liste des billets</h2>
+    </div>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Content</th>
-                <th>CreatedAt</th>
-                <th>UpdatedAt</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for ticket in tickets %}
-            <tr>
-                <td>{{ ticket.id }}</td>
-                <td>{{ ticket.title }}</td>
-                <td>{{ ticket.content }}</td>
-                <td>{{ ticket.createdAt ? ticket.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ ticket.updatedAt ? ticket.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
+
+    <div class="container">
+    <p>Jean Forteroche</p>
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('ticket_new') }}">Ajouter un billet</a>
+    {% endif %}
+    <h2>Liste des billets</h2>
+    {% for ticket in tickets %}
+                <h3>{{ ticket.title }}</h3>
+                <p>{{ ticket.content }}</p>
+                <span>{{ ticket.createdAt ? ticket.createdAt|date('Y-m-d H:i:s') : '' }}</span>
+                <span>{{ ticket.updatedAt ? ticket.updatedAt|date('Y-m-d H:i:s') : '' }}</span>
+                {% if is_granted('ROLE_ADMIN') %}
+                <p>
                     <a href="{{ path('ticket_show', {'id': ticket.id}) }}">show</a>
                     <a href="{{ path('ticket_edit', {'id': ticket.id}) }}">edit</a>
-                </td>
-            </tr>
+                </p>
+                {% endif %}
         {% else %}
-            <tr>
-                <td colspan="6">no records found</td>
-            </tr>
+            <div class="alert alert-warning" role="alert">
+                Aucun billet pour le moment
+            </div>
         {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('ticket_new') }}">Create new</a>
+    </div>
 {% endblock %}
