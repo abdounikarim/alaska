@@ -15,10 +15,12 @@
         {% endif %}
         <div class="row">
             <div id="tickets" class="col-md-10 offset-md-1">
-            {% for ticket in tickets %}
-                    <h3><a href="{{ path('ticket_show', {'id': ticket.id}) }}">{{ ticket.id }}. {{ ticket.title }}</a></h3>
-                    <p>{{ ticket.author }}</p>
-                    <p><img src="{{ asset('images/' ~ ticket.image) }}" alt="{{ ticket.alt }}"></p>
+                {% for ticket in tickets %}
+                    <div class="ticket-header">
+                        <h3><a href="{{ path('ticket_show', {'id': ticket.id}) }}">{{ ticket.id }}. {{ ticket.title }}</a></h3>
+                        <p>{{ ticket.author }}</p>
+                    </div>
+                    <p><img src="{{ asset('images/' ~ ticket.image) }}" alt="{{ ticket.alt }}" class="img"></p>
                     <p>{{ ticket.content|slice(0, 300)|raw }}... <a href="{{ path('ticket_show', {'id': ticket.id}) }}">Lire la suite</a></p>
                     <span>Publié le {{ ticket.createdAt ? ticket.createdAt|date('d/m/Y H:i:s') : '' }}</span>
                     <span>Mis à jour le {{ ticket.updatedAt ? ticket.updatedAt|date('d/m/Y H:i:s') : '' }}</span>
@@ -28,10 +30,9 @@
                         <span>{{ ticket.nbComments }} Commentaire</span>
                     {% endif %}
                     {% if is_granted('ROLE_ADMIN') %}
-                    <p>
-                        <a href="{{ path('ticket_edit', {'id': ticket.id}) }}">Modifier le billet</a>
-                    </p>
+                        <p><a href="{{ path('ticket_edit', {'id': ticket.id}) }}">Modifier le billet</a></p>
                     {% endif %}
+                    <br><br>
                 {% else %}
                     <div class="alert alert-warning" role="alert">
                         Aucun billet pour le moment
