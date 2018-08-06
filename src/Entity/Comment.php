@@ -18,11 +18,15 @@ class Comment
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Le champ ne doit pas être vide")
+     * @Assert\Length(min="2", minMessage="Le champ doit comporter au moins 2 caractères", max="255", maxMessage="Le champ doit comporter un maximum de 255 caractères")
      */
     private $pseudo;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank(message="Le champ ne doit pas être vide")
+     * @Assert\Length(min="2", minMessage="Le champ doit comporter au moins 2 caractères")
      */
     private $message;
 
