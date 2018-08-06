@@ -1,0 +1,65 @@
+body{
+    font-family: 'Ubuntu Condensed';
+    background: url("../images/666936496831.png") no-repeat fixed;
+    color: #f5f3f3;
+}
+h1{
+    text-transform: uppercase;
+}
+h3{
+    font-style: italic;
+}
+img{
+    width: 100%;
+}
+
+/* NAVBAR */
+.bg-dark{
+    background-color: #282727 !important;
+}
+.navbar-collapse{
+    justify-content: flex-end;
+}
+
+
+/* CONTENT */
+.content{
+    margin-top: 55px;
+    background-color: #282727;
+    padding: 10px;
+}
+.snow{
+    background-image:
+            url("../images/snow.png"),
+            url("../images/snow1.png"),
+            url("../images/snow2.png");
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    animation: snow 10s linear infinite;
+}
+@keyframes snow {
+    from {background-position: 0px 0px, 0px 0px, 0px 0px;}
+    to {background-position: 500px 1000px, 200px 400px, -100px 300px;}
+}
+.subtitle{
+    font-style: italic;
+}
+
+.content .carousel p{
+    margin-top: 20px;
+}
+
+.content a, .content a:hover {
+    color: #00a7e1;
+    text-decoration: none;
+}
+
+
+
+
+@media (min-width: 768px) {
+    body{
+        background-size: 100%;
+    }
+}
