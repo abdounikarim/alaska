@@ -24,14 +24,8 @@ class CommentFixtures extends Fixture implements DependentFixtureInterface
             }
             $comment->setFlag($flag);
             $ticket = rand(1, 3);
-            if($ticket == 1){
-                $ticket_reference = 'ticket-1';
-            } else if($ticket == 2) {
-                $ticket_reference = 'ticket-2';
-            } else {
-                $ticket_reference = 'ticket-3';
-            }
-            $comment->setTicket($this->getReference($ticket_reference));
+            $comment->setTicket($this->getReference('ticket-'.$ticket));
+            $manager->persist($comment);
         }
         $manager->flush();
     }
