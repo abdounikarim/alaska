@@ -1,7 +1,10 @@
-.ticket_infos {
+.ticket_header, .ticket_infos {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+.ticket_header p{
+    font-style: italic;
 }
 hr{
     background-color: #f5f3f3;

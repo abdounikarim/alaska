@@ -3,6 +3,25 @@
 {% block title %}Ticket{% endblock %}
 
 {% block body %}
+    <div class="content snow">
+        <div class="row">
+            <div id="ticket" class="col-md-10 offset-md-1">
+                <div class="ticket_header">
+                    <h1>{{ ticket.id }}. {{ ticket.title }}</h1>
+                    <p>{{ ticket.author.username }}</p>
+                </div>
+                <p><img src="{{ asset('images/' ~ ticket.image) }}" alt="{{ ticket.alt }}" class="img"></p>
+                <p>{{ ticket.content|slice(0, 300)|raw }}... <a href="{{ path('ticket_show', {'id': ticket.id}) }}">Lire la suite</a></p>
+                <div class="ticket_infos">
+                    <p><span>Publié le {{ ticket.createdAt ? ticket.createdAt|date('d/m/Y à H:i:s') : '' }}</span><br><span>Mis à jour le {{ ticket.updatedAt ? ticket.updatedAt|date('d/m/Y à H:i:s') : '' }}</span></p>
+                </div>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <p><a href="{{ path('ticket_edit', {'id': ticket.id}) }}">Modifier le billet</a></p>
+                {% endif %}
+                <hr>
+            </div>
+        </div>
+    </div>
     <h1>Ticket</h1>
 
     <table class="table">

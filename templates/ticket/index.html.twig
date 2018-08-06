@@ -18,9 +18,9 @@
                     <br>
                 {% endif %}
                 {% for ticket in tickets %}
-                    <div class="ticket-header">
+                    <div class="ticket_header">
                         <h2><a href="{{ path('ticket_show', {'id': ticket.id}) }}">{{ ticket.id }}. {{ ticket.title }}</a></h2>
-                        <p>{{ ticket.author }}</p>
+                        <p class="text-italic">Écrit par {{ ticket.author }}</p>
                     </div>
                     <p><img src="{{ asset('images/' ~ ticket.image) }}" alt="{{ ticket.alt }}" class="img"></p>
                     <p>{{ ticket.content|slice(0, 300)|raw }}... <a href="{{ path('ticket_show', {'id': ticket.id}) }}">Lire la suite</a></p>
