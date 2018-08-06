@@ -17,10 +17,16 @@
     <h2>Liste des billets</h2>
     {% for ticket in tickets %}
             <h3>{{ ticket.id }}. {{ ticket.title }}</h3>
-            <p>{{ ticket.content }}</p>
+            <p>{{ ticket.author }}</p>
+            <p><img src="{{ asset('images/' ~ ticket.image) }}" alt="{{ ticket.alt }}"></p>
+            <p>{{ ticket.content|slice(0, 300)|raw }}... <a href="{{ path('ticket_show', {'id': ticket.id}) }}">Lire la suite</a></p>
             <span>Publié le {{ ticket.createdAt ? ticket.createdAt|date('d/m/Y H:i:s') : '' }}</span>
             <span>Mis à jour le {{ ticket.updatedAt ? ticket.updatedAt|date('d/m/Y H:i:s') : '' }}</span>
-            <p><a href="{{ path('ticket_show', {'id': ticket.id}) }}">Lire la suite</a></p>
+            {% if(ticket.nbComments > 0) %}
+                <span>{{ ticket.nbComments }} Commentaires</span>
+            {% else %}
+                <span>{{ ticket.nbComments }} Commentaire</span>
+            {% endif %}
             {% if is_granted('ROLE_ADMIN') %}
             <p>
                 <a href="{{ path('ticket_edit', {'id': ticket.id}) }}">Modifier le billet</a>

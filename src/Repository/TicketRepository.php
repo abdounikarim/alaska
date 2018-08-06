@@ -19,11 +19,17 @@ class TicketRepository extends ServiceEntityRepository
         parent::__construct($registry, Ticket::class);
     }
 
-    public function findAllPublishedTickets()
+    public function findAllPublishedTicketsWithNumberOfComments()
     {
         return $this->createQueryBuilder('t')
+            ->select('t.id', 't.title', 't.content', 't.alt', 't.image', 't.createdAt', 't.updatedAt')
             ->where('t.published = :value')
             ->setParameter('value', 1)
+            ->addSelect('COUNT(c.id) as nbComments')
+            ->leftJoin('t.comments', 'c', 'with', 't.id = c.ticket')
+            ->addSelect('a.username as author')
+            ->leftJoin('t.author', 'a')
+            ->groupBy('t.id')
             ->orderBy('t.id', 'DESC')
             ->getQuery()
             ->getResult()

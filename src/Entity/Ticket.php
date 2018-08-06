@@ -65,7 +65,7 @@ class Ticket
     private $comments;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="tickets")
      */
     private $author;
 

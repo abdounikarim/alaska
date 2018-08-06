@@ -53,6 +53,11 @@ class User implements UserInterface
      */
     private $roles;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Ticket", mappedBy="author")
+     */
+    private $tickets;
+
     public function __construct()
     {
         $this->roles = array('ROLE_USER');
