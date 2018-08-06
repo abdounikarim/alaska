@@ -14,6 +14,6 @@ class HomeController extends Controller
      */
     public function index(TicketRepository $ticketRepository): Response
     {
-        return $this->render('ticket/index.html.twig', ['tickets' => $ticketRepository->findAll()]);
+        return $this->render('ticket/index.html.twig', ['tickets' => $ticketRepository->findAllPublishedTickets()]);
     }
 }

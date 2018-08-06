@@ -19,6 +19,17 @@ class TicketRepository extends ServiceEntityRepository
         parent::__construct($registry, Ticket::class);
     }
 
+    public function findAllPublishedTickets()
+    {
+        return $this->createQueryBuilder('t')
+            ->where('t.published = :value')
+            ->setParameter('value', 1)
+            ->orderBy('t.id', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
 //    /**
 //     * @return Ticket[] Returns an array of Ticket objects
 //     */
