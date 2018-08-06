@@ -10,29 +10,34 @@
 {% block body %}
     <div class="content snow">
         <h1 class="text-center">Liste des billets</h1>
-        {% if is_granted('ROLE_ADMIN') %}
-            <a href="{{ path('ticket_new') }}">Ajouter un billet</a>
-        {% endif %}
         <div class="row">
             <div id="tickets" class="col-md-10 offset-md-1">
+                {% if is_granted('ROLE_ADMIN') %}
+                    <p class="text-center"><a class="btn custom" href="{{ path('ticket_new') }}">Ajouter un billet</a></p>
+                    <br>
+                    <br>
+                {% endif %}
                 {% for ticket in tickets %}
                     <div class="ticket-header">
-                        <h3><a href="{{ path('ticket_show', {'id': ticket.id}) }}">{{ ticket.id }}. {{ ticket.title }}</a></h3>
+                        <h2><a href="{{ path('ticket_show', {'id': ticket.id}) }}">{{ ticket.id }}. {{ ticket.title }}</a></h2>
                         <p>{{ ticket.author }}</p>
                     </div>
                     <p><img src="{{ asset('images/' ~ ticket.image) }}" alt="{{ ticket.alt }}" class="img"></p>
                     <p>{{ ticket.content|slice(0, 300)|raw }}... <a href="{{ path('ticket_show', {'id': ticket.id}) }}">Lire la suite</a></p>
-                    <span>Publié le {{ ticket.createdAt ? ticket.createdAt|date('d/m/Y H:i:s') : '' }}</span>
-                    <span>Mis à jour le {{ ticket.updatedAt ? ticket.updatedAt|date('d/m/Y H:i:s') : '' }}</span>
-                    {% if(ticket.nbComments > 0) %}
-                        <span>{{ ticket.nbComments }} Commentaires</span>
-                    {% else %}
-                        <span>{{ ticket.nbComments }} Commentaire</span>
-                    {% endif %}
+                    <div class="ticket_infos">
+                        <p><span>Publié le {{ ticket.createdAt ? ticket.createdAt|date('d/m/Y à H:i:s') : '' }}</span><br><span>Mis à jour le {{ ticket.updatedAt ? ticket.updatedAt|date('d/m/Y à H:i:s') : '' }}</span></p>
+                        <p>
+                        {% if(ticket.nbComments > 0) %}
+                            <span>{{ ticket.nbComments }} Commentaires</span>
+                        {% else %}
+                            <span>{{ ticket.nbComments }} Commentaire</span>
+                        {% endif %}
+                        </p>
+                    </div>
                     {% if is_granted('ROLE_ADMIN') %}
                         <p><a href="{{ path('ticket_edit', {'id': ticket.id}) }}">Modifier le billet</a></p>
                     {% endif %}
-                    <br><br>
+                    <hr>
                 {% else %}
                     <div class="alert alert-warning" role="alert">
                         Aucun billet pour le moment

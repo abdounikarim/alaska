@@ -1,3 +1,8 @@
+.ticket_infos {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 hr{
     background-color: #f5f3f3;
     border: groove 1px #f5f3f3;

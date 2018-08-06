@@ -55,6 +55,16 @@ img{
     text-decoration: none;
 }
 
+.custom, .custom:hover{
+    padding: 10px 100px;
+    border: solid 2px #00a7e1;
+}
+.custom:hover{
+    background-color: #f5f3f3;
+    transition-duration: 1s;
+}
+
+
 
 
 
