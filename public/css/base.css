@@ -58,6 +58,8 @@ img{
 .custom, .custom:hover{
     padding: 10px 50px;
     border: solid 2px #00a7e1;
+    color: #00a7e1;
+    background-color: transparent;
 }
 .custom:hover{
     background-color: #f5f3f3;

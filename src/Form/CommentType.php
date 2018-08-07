@@ -14,9 +14,6 @@ class CommentType extends AbstractType
         $builder
             ->add('pseudo')
             ->add('message')
-            ->add('createdAt')
-            ->add('flag')
-            ->add('ticket')
         ;
     }
 

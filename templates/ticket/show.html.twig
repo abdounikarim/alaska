@@ -6,6 +6,11 @@
     <div class="content snow">
         <div class="row">
             <div id="ticket" class="col-md-10 offset-md-1">
+                {% for message in app.flashes('add_comment') %}
+                    <div class="flash-notice alert alert-success">
+                        {{ message }}
+                    </div>
+                {% endfor %}
                 <div class="ticket_header">
                     <h1>{{ ticket.id }}. {{ ticket.title }}</h1>
                     <p>Écrit par {{ ticket.author.username }}</p>
@@ -33,6 +38,9 @@
         <br>
         <div class="row">
             <div id="comments" class="col-md-8 offset-md-2">
+                <h2>Ajouter un commentaire</h2>
+                {{ include('comment/_form.html.twig') }}
+                <br>
                 <h2>Commentaires</h2>
                 {% for comment in ticket.comments %}
                     <div class="comment">
