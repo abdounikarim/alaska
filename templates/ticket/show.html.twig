@@ -11,6 +11,11 @@
                         {{ message }}
                     </div>
                 {% endfor %}
+                {% for message in app.flashes('flag') %}
+                    <div class="flash-notice alert alert-success">
+                        {{ message }}
+                    </div>
+                {% endfor %}
                 <div class="ticket_header">
                     <h1>{{ ticket.id }}. {{ ticket.title }}</h1>
                     <p>Écrit par {{ ticket.author.username }}</p>
@@ -20,9 +25,6 @@
                 <div class="ticket_infos">
                     <p><span>Publié le {{ ticket.createdAt ? ticket.createdAt|date('d/m/Y à H:i:s') : '' }}</span><br><span>Mis à jour le {{ ticket.updatedAt ? ticket.updatedAt|date('d/m/Y à H:i:s') : '' }}</span></p>
                 </div>
-                {% if is_granted('ROLE_ADMIN') %}
-                    <p><a href="{{ path('ticket_edit', {'id': ticket.id}) }}">Modifier le billet</a></p>
-                {% endif %}
                 <hr>
             </div>
         </div>
@@ -30,8 +32,10 @@
             <div id="actions" class="col-md-10 offset-md-1">
                 <p class="text-center"><a class="btn custom" href="{{ path('home') }}">Retour à l'accueil</a></p>
                 <div class="action">
-                    <a class="btn custom" href="{{ path('ticket_edit', {'id': ticket.id}) }}">Modifier le billet</a>
-                    {{ include('ticket/_delete_form.html.twig') }}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a class="btn custom" href="{{ path('ticket_edit', {'id': ticket.id}) }}">Modifier le billet</a>
+                        {{ include('ticket/_delete_form.html.twig') }}
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -49,6 +53,37 @@
                             <p>Posté le : {{ comment.createdAt|date('d/m/Y à H:i:s') }}</p>
                         </div>
                         <p>Message : {{ comment.message }}</p>
+                        <p class="text-center">
+                            {% if comment.flag %}
+                                Ce commentaire a déjà été signalé
+                            {% else %}
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn custom" data-toggle="modal" data-target="#flagModal{{ comment.id }}">
+                                    Signaler le commentaire
+                                </button>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="flagModal{{ comment.id }}" tabindex="-1" role="dialog" aria-labelledby="flagModalLabel{{ comment.id }}" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="flagModalLabel{{ comment.id }}"><b>Êtes-vous certains de vouloir signaler ce commentaire ?</b></h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                {{ comment.message }}
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn custom" data-dismiss="modal">Annuler</button>
+                                                <a class="btn custom" href="{{ path('flag', { id: comment.id }) }}">Confirmer</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </p>
                         <hr>
                     </div>
                 {% endfor %}

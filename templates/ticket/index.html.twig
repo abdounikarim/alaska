@@ -35,7 +35,7 @@
                         </p>
                     </div>
                     {% if is_granted('ROLE_ADMIN') %}
-                        <p><a class="btn custom" href="{{ path('ticket_edit', {'id': ticket.id}) }}">Modifier le billet</a></p>
+                        <p class="text-center"><a class="btn custom" href="{{ path('ticket_edit', {'id': ticket.id}) }}">Modifier le billet</a></p>
                     {% endif %}
                     <hr>
                 {% else %}

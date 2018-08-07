@@ -88,7 +88,10 @@ hr{
     justify-content: space-between;
     align-items: center;
 }
-
+.modal-footer{
+    display: flex;
+    justify-content: space-between;
+}
 
 
 @media (min-width: 768px) {

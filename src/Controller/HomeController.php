@@ -49,4 +49,20 @@ class HomeController extends Controller
             'form' => $form->createView()
         ]);
     }
+
+    /**
+     * @Route("/comment/{id}/flag", name="flag", methods="GET")
+     */
+    public function flag(Comment $comment)
+    {
+        $comment->setFlag(true);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($comment);
+        $em->flush();
+
+        $this->addFlash('flag', 'Le commentaire a été signalé');
+        return $this->redirectToRoute('ticket', [
+            'id' => $comment->getTicket()->getId()
+        ]);
+    }
 }
