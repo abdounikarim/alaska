@@ -18,10 +18,18 @@
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-user"></i> Non connecté
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <i class="fas fa-user"></i> Connecté
+                        {% else %}
+                            <i class="fas fa-user"></i> Non connecté
+                        {% endif %}
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{{ path('admin') }}"><i class="fas fa-sign-in-alt"></i> Connexion</a>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <a class="dropdown-item" href="{{ path('logout') }}"><i class="fas fa-sign-in-alt"></i> Déconnexion</a>
+                        {% else %}
+                            <a class="dropdown-item" href="{{ path('admin') }}"><i class="fas fa-sign-in-alt"></i> Connexion</a>
+                        {% endif %}
                     </div>
                 </li>
             </ul>
