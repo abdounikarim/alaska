@@ -8,10 +8,10 @@
             <div id="ticket" class="col-md-10 offset-md-1">
                 <div class="ticket_header">
                     <h1>{{ ticket.id }}. {{ ticket.title }}</h1>
-                    <p>{{ ticket.author.username }}</p>
+                    <p>Écrit par {{ ticket.author.username }}</p>
                 </div>
                 <p><img src="{{ asset('images/' ~ ticket.image) }}" alt="{{ ticket.alt }}" class="img"></p>
-                <p>{{ ticket.content|slice(0, 300)|raw }}... <a href="{{ path('ticket_show', {'id': ticket.id}) }}">Lire la suite</a></p>
+                <p>{{ ticket.content|raw }}</p>
                 <div class="ticket_infos">
                     <p><span>Publié le {{ ticket.createdAt ? ticket.createdAt|date('d/m/Y à H:i:s') : '' }}</span><br><span>Mis à jour le {{ ticket.updatedAt ? ticket.updatedAt|date('d/m/Y à H:i:s') : '' }}</span></p>
                 </div>
@@ -21,59 +21,31 @@
                 <hr>
             </div>
         </div>
+        <div class="row">
+            <div id="actions" class="col-md-10 offset-md-1">
+                <p class="text-center"><a class="btn custom" href="{{ path('home') }}">Retour à l'accueil</a></p>
+                <div class="action">
+                    <a class="btn custom" href="{{ path('ticket_edit', {'id': ticket.id}) }}">Modifier le billet</a>
+                    {{ include('ticket/_delete_form.html.twig') }}
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div id="comments" class="col-md-8 offset-md-2">
+                <h2>Commentaires</h2>
+                {% for comment in ticket.comments %}
+                    <div class="comment">
+                        <div class="comment_info">
+                            <p>Pseudo : {{ comment.pseudo }}</p>
+                            <p>Posté le : {{ comment.createdAt|date('d/m/Y à H:i:s') }}</p>
+                        </div>
+                        <p>Message : {{ comment.message }}</p>
+                        <hr>
+                    </div>
+                {% endfor %}
+                <p class="text-center"><a class="btn custom" href="{{ path('home') }}">Retour à l'accueil</a></p>
+            </div>
+        </div>
     </div>
-    <h1>Ticket</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ ticket.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ ticket.title }}</td>
-            </tr>
-            <tr>
-                <th>Content</th>
-                <td>{{ ticket.content }}</td>
-            </tr>
-            <tr>
-                <th>CreatedAt</th>
-                <td>{{ ticket.createdAt ? ticket.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>UpdatedAt</th>
-                <td>{{ ticket.updatedAt ? ticket.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Image</th>
-                <td><img src="{{ asset('images/' ~ ticket.image ) }}" </td>
-            </tr>
-            <tr>
-                <th>Alt</th>
-                <td>{{ ticket.alt }}</td>
-            </tr>
-            <tr>
-                <th>Publié</th>
-                <td>
-                    {% if ticket.published == 1 %}
-                        Oui
-                    {% else %}
-                        Non
-                    {% endif %}
-                </td>
-            </tr>
-            <tr>
-                <th>Auteur</th>
-                <td>{{ ticket.author.username }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('home') }}">back to list</a>
-
-    <a href="{{ path('ticket_edit', {'id': ticket.id}) }}">edit</a>
-
-    {{ include('ticket/_delete_form.html.twig') }}
 {% endblock %}
