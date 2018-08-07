@@ -88,6 +88,12 @@ hr{
     justify-content: space-between;
     align-items: center;
 }
+.modal-content{
+    background-color: black;
+}
+.close, .close:hover{
+    color: white;
+}
 .modal-footer{
     display: flex;
     justify-content: space-between;
