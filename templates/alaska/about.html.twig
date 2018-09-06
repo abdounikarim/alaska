@@ -14,6 +14,9 @@
             <div id="about" class="col-md-10 offset-md-1">
                 <div class="about-img">
                     <p><img src="{{ asset('images/' ~ user.image) }}"></p>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <p class="text-center"><a class="btn custom" href="#">Modifier l'auteur</a></p>
+                    {% endif %}
                 </div>
                 <div class="about-desc">
                     <p>{{ user.description }}</p>
