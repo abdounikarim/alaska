@@ -17,19 +17,17 @@ class TicketType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title')
-            ->add('content')
-            ->add('createdAt')
-            ->add('updatedAt')
+            ->add('titre')
+            ->add('contenu')
             ->add('image', FileType::class, [
                 'data_class' => null,
                 'required' => false
             ])
-            ->add('alt')
-            ->add('published', CheckboxType::class, [
+            ->add('Texte alternatif')
+            ->add('Publié', CheckboxType::class, [
                 'required' => false
             ])
-            ->add('author', EntityType::class, [
+            ->add('Auteur', EntityType::class, [
                 'class' => User::class,
                 'choice_label' => 'username'
             ])
