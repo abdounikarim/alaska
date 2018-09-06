@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Comment;
 use App\Entity\Ticket;
+use App\Entity\User;
 use App\Form\CommentType;
 use App\Repository\TicketRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -63,6 +64,18 @@ class HomeController extends Controller
         $this->addFlash('flag', 'Le commentaire a été signalé');
         return $this->redirectToRoute('ticket', [
             'id' => $comment->getTicket()->getId()
+        ]);
+    }
+
+    /**
+     * @Route("/about", name="about")
+     */
+    public function about()
+    {
+        $user = $this->getDoctrine()->getManager()->getRepository(User::class)->find(1);
+        dump($user);
+        return $this->render('alaska/about.html.twig', [
+            'user' => $user
         ]);
     }
 }
