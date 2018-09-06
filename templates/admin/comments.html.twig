@@ -1,0 +1,31 @@
+<div class="tab-pane fade" id="comments" role="tabpanel" aria-labelledby="comments-tab">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Pseudo</th>
+            <th>Message</th>
+            <th>Date</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for comment in comments %}
+            <tr>
+                <td>{{ comment.id }}</td>
+                <td>{{ comment.pseudo }}</td>
+                <td>{{ comment.message }}</td>
+                <td>{{ comment.createdAt ? comment.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('unflag', {'id': comment.id}) }}">Désignaler</a>
+                    <a href="{{ path('comment_delete', {'id': comment.id}) }}">Supprimer</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">Aucun commentaire trouvé</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>

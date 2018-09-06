@@ -54,6 +54,29 @@ class HomeController extends Controller
     }
 
     /**
+     * @Route("/comment/new", name="comment_new", methods="GET|POST")
+     */
+    public function new(Request $request): Response
+    {
+        $comment = new Comment();
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($comment);
+            $em->flush();
+
+            return $this->redirectToRoute('home');
+        }
+
+        return $this->render('comment/new.html.twig', [
+            'comment' => $comment,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
      * @Route("/comment/{id}/flag", name="flag", methods="GET")
      */
     public function flag(Comment $comment)
