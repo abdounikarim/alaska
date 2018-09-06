@@ -9,6 +9,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -17,17 +19,26 @@ class TicketType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('titre')
-            ->add('contenu')
+            ->add('title', TextType::class, [
+                'label' => 'Titre'
+            ])
+            ->add('content', TextareaType::class, [
+                'label' => 'Contenu'
+            ])
             ->add('image', FileType::class, [
+                'label' => 'Image',
                 'data_class' => null,
                 'required' => false
             ])
-            ->add('Texte alternatif')
-            ->add('Publié', CheckboxType::class, [
+            ->add('alt', TextType::class, [
+                'label' => 'Texte Alternatif'
+            ])
+            ->add('published', CheckboxType::class, [
+                'label' => 'Publié',
                 'required' => false
             ])
-            ->add('Auteur', EntityType::class, [
+            ->add('author', EntityType::class, [
+                'label' => 'Auteur',
                 'class' => User::class,
                 'choice_label' => 'username'
             ])
