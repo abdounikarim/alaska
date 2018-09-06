@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Comment;
+use App\Entity\Contact;
 use App\Entity\Ticket;
 use App\Entity\User;
 use App\Form\CommentType;
+use App\Form\ContactType;
 use App\Repository\TicketRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -73,9 +75,28 @@ class HomeController extends Controller
     public function about()
     {
         $user = $this->getDoctrine()->getManager()->getRepository(User::class)->find(1);
-        dump($user);
         return $this->render('alaska/about.html.twig', [
             'user' => $user
+        ]);
+    }
+
+    /**
+     * @Route("/contact", name="contact")
+     */
+    public function contact(Request $request)
+    {
+        $contact = new Contact();
+        $form = $this->createForm(ContactType::class, $contact);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($contact);
+            $em->flush();
+            $this->addFlash('contact', 'Merci ! Votre message a bien été envoyé');
+            return $this->redirectToRoute('home');
+        }
+        return $this->render('alaska/contact.html.twig', [
+            'form' => $form->createView()
         ]);
     }
 }

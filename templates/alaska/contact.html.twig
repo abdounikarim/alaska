@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contact{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/contact.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="content snow">
+        <h1 class="text-center">Contact</h1>
+        <div class="row">
+            <div id="contact" class="col-md-10 offset-md-1">
+                {{ form_start(form) }}
+                    {{ form_widget(form) }}
+                    <button class="btn custom">{{ button_label|default('Envoyer') }}</button>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
