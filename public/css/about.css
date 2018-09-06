@@ -1,0 +1,19 @@
+#about{
+    display: flex;
+    flex-direction: column;
+}
+.about-img{
+    text-align: center;
+}
+@media (min-width: 992px) {
+    #about{
+        flex-direction: row;
+    }
+    .about-img{
+        flex: 1;
+    }
+    .about-desc{
+        margin-left: 10px;
+        flex: 3;
+    }
+}

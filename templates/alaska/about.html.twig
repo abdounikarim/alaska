@@ -4,7 +4,7 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/tickets.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/about.css') }}">
 {% endblock %}
 
 {% block body %}
@@ -12,10 +12,14 @@
         <h1 class="text-center">À propos de {{ user.username }}</h1>
         <div class="row">
             <div id="about" class="col-md-10 offset-md-1">
-                {{ dump(user) }}
-                {{ dump(app.request.get('_route')) }}
-                {{ dump('_list') }}
+                <div class="about-img">
+                    <p><img src="{{ asset('images/' ~ user.image) }}"></p>
+                </div>
+                <div class="about-desc">
+                    <p>{{ user.description }}</p>
+                </div>
             </div>
         </div>
+        <p class="text-center"><a class="btn custom" href="#">Contacter</a></p>
     </div>
 {% endblock %}
