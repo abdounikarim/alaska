@@ -16,6 +16,11 @@
                 <li class="nav-item{% if app.request.get('_route') == 'contact' %} active {% endif %}">
                     <a class="nav-link" href="{{ path('contact') }}"><i class="far fa-envelope"></i> Contact</a>
                 </li>
+                {% if is_granted('ROLE_ADMIN') %}
+                <li class="nav-item{% if app.request.get('_route') == 'admin' %} active {% endif %}">
+                    <a class="nav-link" href="{{ path('admin') }}"><i class="fas fa-cog"></i> Administration</a>
+                </li>
+                {% endif %}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         {% if is_granted('ROLE_ADMIN') %}
