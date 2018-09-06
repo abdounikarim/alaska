@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Billet {{ ticket.id }} - {{ ticket.title }}{% endblock %}
+
+{% block body %}
+    <div class="content snow">
+        <div class="row">
+            <div id="ticket" class="col-md-10 offset-md-1">
+                <div class="ticket_header">
+                    <h1>{{ ticket.id }}. {{ ticket.title }}</h1>
+                    <p>Écrit par {{ ticket.author.username }}</p>
+                </div>
+                <p><img src="{{ asset('images/' ~ ticket.image) }}" alt="{{ ticket.alt }}" class="img"></p>
+                <p>{{ ticket.content|raw }}</p>
+                <div class="ticket_infos">
+                    <p>
+                        <span>Publié le {{ ticket.createdAt ? ticket.createdAt|date('d/m/Y à H:i:s') : '' }}</span><br>
+                        {% if ticket.updatedAt is not null %}
+                            <span>Mis à jour le {{ ticket.updatedAt ? ticket.updatedAt|date('d/m/Y à H:i:s') : '' }}</span>
+                        {% endif %}
+                    </p>
+                </div>
+                <hr>
+            </div>
+        </div>
+    </div>
+{% endblock %}

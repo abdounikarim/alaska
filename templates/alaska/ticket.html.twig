@@ -23,7 +23,12 @@
                 <p><img src="{{ asset('images/' ~ ticket.image) }}" alt="{{ ticket.alt }}" class="img"></p>
                 <p>{{ ticket.content|raw }}</p>
                 <div class="ticket_infos">
-                    <p><span>Publié le {{ ticket.createdAt ? ticket.createdAt|date('d/m/Y à H:i:s') : '' }}</span><br><span>Mis à jour le {{ ticket.updatedAt ? ticket.updatedAt|date('d/m/Y à H:i:s') : '' }}</span></p>
+                    <p>
+                        <span>Publié le {{ ticket.createdAt ? ticket.createdAt|date('d/m/Y à H:i:s') : '' }}</span><br>
+                        {% if ticket.updatedAt is not null %}
+                            <span>Mis à jour le {{ ticket.updatedAt ? ticket.updatedAt|date('d/m/Y à H:i:s') : '' }}</span>
+                        {% endif %}
+                    </p>
                 </div>
                 <hr>
             </div>

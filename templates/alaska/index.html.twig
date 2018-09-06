@@ -12,6 +12,11 @@
         <h1 class="text-center">Liste des billets</h1>
         <div class="row">
             <div id="tickets" class="col-md-10 offset-md-1">
+                {% for message in app.flashes('add_ticket') %}
+                    <div class="alert alert-success flash-notice">
+                        {{ message }}
+                    </div>
+                {% endfor %}
                 {% for message in app.flashes('contact') %}
                     <div class="alert alert-success flash-notice">
                         {{ message }}
@@ -24,13 +29,18 @@
                 {% endif %}
                 {% for ticket in tickets %}
                     <div class="ticket_header">
-                        <h2><a href="{{ path('ticket_show', {'id': ticket.id}) }}">{{ ticket.id }}. {{ ticket.title }}</a></h2>
+                        <h2><a href="{{ path('ticket', {'id': ticket.id}) }}">{{ ticket.id }}. {{ ticket.title }}</a></h2>
                         <p class="text-italic">Écrit par {{ ticket.author }}</p>
                     </div>
                     <p><img src="{{ asset('images/' ~ ticket.image) }}" alt="{{ ticket.alt }}" class="img"></p>
-                    <p>{{ ticket.content|slice(0, 300)|raw }}... <a href="{{ path('ticket_show', {'id': ticket.id}) }}">Lire la suite</a></p>
+                    <p>{{ ticket.content|slice(0, 300)|raw }}... <a href="{{ path('ticket', {'id': ticket.id}) }}">Lire la suite</a></p>
                     <div class="ticket_infos">
-                        <p><span>Publié le {{ ticket.createdAt ? ticket.createdAt|date('d/m/Y à H:i:s') : '' }}</span><br><span>Mis à jour le {{ ticket.updatedAt ? ticket.updatedAt|date('d/m/Y à H:i:s') : '' }}</span></p>
+                        <p>
+                            <span>Publié le {{ ticket.createdAt ? ticket.createdAt|date('d/m/Y à H:i:s') : '' }}</span><br>
+                            {% if ticket.updatedAt is not null %}
+                                <span>Mis à jour le {{ ticket.updatedAt ? ticket.updatedAt|date('d/m/Y à H:i:s') : '' }}</span>
+                            {% endif %}
+                        </p>
                         <p>
                         {% if(ticket.nbComments > 0) %}
                             <span>{{ ticket.nbComments }} Commentaires</span>

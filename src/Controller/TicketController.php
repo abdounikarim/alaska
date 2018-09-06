@@ -16,13 +16,6 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class TicketController extends Controller
 {
-    /**
-     * @Route("/{id}", name="ticket_show", methods="GET")
-     */
-    public function show(Ticket $ticket): Response
-    {
-        return $this->render('ticket/ticket.html.twig', ['ticket' => $ticket]);
-    }
 
     /**
      * @Route("/{id}/edit", name="ticket_edit", methods="GET|POST")

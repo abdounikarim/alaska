@@ -41,12 +41,14 @@ class AdminController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $ticket->setCreatedAt(new \DateTime());
             $image = $ticket->getImage();
             $imageName = $fileUploader->upload($image);
             $ticket->setImage($imageName);
             $em = $this->getDoctrine()->getManager();
             $em->persist($ticket);
             $em->flush();
+            $this->addFlash('add_ticket', 'Le nouveau billet a bien été ajouté');
 
             return $this->redirectToRoute('home');
         }
@@ -55,6 +57,14 @@ class AdminController extends Controller
             'ticket' => $ticket,
             'form' => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/ticket/{id}", name="ticket_show", methods="GET")
+     */
+    public function show(Ticket $ticket): Response
+    {
+        return $this->render('admin/ticket.html.twig', ['ticket' => $ticket]);
     }
 
     /**
