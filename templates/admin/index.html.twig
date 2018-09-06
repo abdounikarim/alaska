@@ -12,9 +12,22 @@
         <h1 class="text-center">Administration</h1>
         <div class="row">
             <div id="admin" class="col-md-10 offset-md-1">
-                {{ dump(tickets) }}
-                {{ dump(comments) }}
-                {{ dump(users) }}
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link" id="tickets-tab" data-toggle="tab" href="#tickets" role="tab" aria-controls="tickets" aria-selected="true">Billets</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="comments-tab" data-toggle="tab" href="#comments" role="tab" aria-controls="comments" aria-selected="false">Commentaires signalés</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="users-tab" data-toggle="tab" href="#users" role="tab" aria-controls="users" aria-selected="false">Utilisateurs</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    {{ include('admin/tickets.html.twig') }}
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
+                    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+                </div>
             </div>
         </div>
     </div>

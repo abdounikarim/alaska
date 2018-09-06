@@ -1,0 +1,33 @@
+<div class="tab-pane fade show active" id="tickets" role="tabpanel" aria-labelledby="tickets-tab">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Titre</th>
+            <th>Image</th>
+            <th>Contenu</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for ticket in tickets %}
+            <tr>
+                <td>{{ ticket.id }}</td>
+                <td>{{ ticket.title }}</td>
+                <td><img src="{{ asset('images/' ~ ticket.image) }}"></td>
+                <td>{{ ticket.content }}</td>
+                <td>
+                    <a href="#">Voir</a>
+                    <a href="#">Modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">Aucun billet trouvé</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="#">Ajouter un billet</a>
+</div>
