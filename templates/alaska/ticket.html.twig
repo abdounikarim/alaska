@@ -39,7 +39,7 @@
                 <div class="action">
                     {% if is_granted('ROLE_ADMIN') %}
                         <a class="btn custom" href="{{ path('ticket_edit', {'id': ticket.id}) }}">Modifier le billet</a>
-                        {{ include('ticket/_delete_form.html.twig') }}
+                        {{ include('ticket/ticket_delete_form.html.twig') }}
                     {% endif %}
                 </div>
             </div>

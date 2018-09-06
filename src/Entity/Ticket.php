@@ -60,7 +60,7 @@ class Ticket
     private $alt;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="ticket")
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="ticket", cascade={"persist"})
      */
     private $comments;
 

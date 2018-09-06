@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Nouveau billet{% endblock %}
+{% block title %}Modifier un billet{% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
@@ -9,13 +9,16 @@
 
 {% block body %}
     <div class="content snow">
-        <h1 class="text-center">Nouveau billet</h1>
+        <h1 class="text-center">Modifier un billet</h1>
         <div class="row">
             <div id="ticket" class="col-md-10 offset-md-1">
-                {{ include('ticket/_form.html.twig') }}
+                {{ include('admin/ticket_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+                <br>
+                {{ include('admin/ticket_delete_form.html.twig') }}
             </div>
         </div>
         <br>
         <p class="text-center"><a class="btn custom" href="{{ path('home') }}">Accueil</a></p>
     </div>
+
 {% endblock %}

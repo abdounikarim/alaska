@@ -10,6 +10,16 @@
 {% block body %}
     <div class="content snow">
         <h1 class="text-center">Administration</h1>
+        {% for message in app.flashes('edit_ticket') %}
+            <div class="alert alert-warning flash-notice">
+                {{ message }}
+            </div>
+        {% endfor %}
+        {% for message in app.flashes('delete_ticket') %}
+            <div class="alert alert-danger flash-notice">
+                {{ message }}
+            </div>
+        {% endfor %}
         {% for message in app.flashes('unflag') %}
             <div class="alert alert-success flash-notice">
                 {{ message }}

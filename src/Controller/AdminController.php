@@ -53,7 +53,7 @@ class AdminController extends Controller
             return $this->redirectToRoute('home');
         }
 
-        return $this->render('ticket/new.html.twig', [
+        return $this->render('admin/ticket_add.html.twig', [
             'ticket' => $ticket,
             'form' => $form->createView(),
         ]);
@@ -65,6 +65,50 @@ class AdminController extends Controller
     public function show(Ticket $ticket): Response
     {
         return $this->render('admin/ticket.html.twig', ['ticket' => $ticket]);
+    }
+
+    /**
+     * @Route("/ticket/{id}/edit", name="ticket_edit", methods="GET|POST")
+     */
+    public function editTicket(Request $request, Ticket $ticket, FileUploader $fileUploader): Response
+    {
+        $imageOld = $ticket->getImage();
+        $form = $this->createForm(TicketType::class, $ticket);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $image = $ticket->getImage();
+            if($image != null) {
+                $imageName = $fileUploader->upload($image);
+                $ticket->setImage($imageName);
+            } else {
+                $ticket->setImage($imageOld);
+            }
+            $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('edit_ticket', 'Le billet a bien été modifié');
+
+            return $this->redirectToRoute('admin');
+        }
+
+        return $this->render('admin/ticket_edit.html.twig', [
+            'ticket' => $ticket,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/ticket/{id}", name="ticket_delete", methods="DELETE")
+     */
+    public function deleteTicket(Request $request, Ticket $ticket): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$ticket->getId(), $request->request->get('_token'))) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($ticket);
+            $em->flush();
+        }
+        $this->addFlash('delete_ticket', 'Le billet a bien été supprimé');
+
+        return $this->redirectToRoute('admin');
     }
 
     /**
@@ -81,7 +125,7 @@ class AdminController extends Controller
     /**
      * @Route("/comment/{id}", name="comment_delete")
      */
-    public function delete(Comment $comment): Response
+    public function deleteComment(Comment $comment): Response
     {
         $em = $this->getDoctrine()->getManager();
         $em->remove($comment);

@@ -70,7 +70,7 @@ class HomeController extends Controller
             return $this->redirectToRoute('home');
         }
 
-        return $this->render('comment/new.html.twig', [
+        return $this->render('comment/ticket_add.html.twig', [
             'comment' => $comment,
             'form' => $form->createView(),
         ]);

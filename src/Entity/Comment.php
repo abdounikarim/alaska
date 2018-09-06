@@ -42,7 +42,7 @@ class Comment
     private $flag;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Ticket", inversedBy="comments")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Ticket", inversedBy="comments", cascade={"persist"})
      */
     private $ticket;
 
