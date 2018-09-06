@@ -12,7 +12,9 @@
         <h1 class="text-center">À propos de {{ user.username }}</h1>
         <div class="row">
             <div id="about" class="col-md-10 offset-md-1">
-
+                {{ dump(user) }}
+                {{ dump(app.request.get('_route')) }}
+                {{ dump('_list') }}
             </div>
         </div>
     </div>
