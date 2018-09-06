@@ -19,6 +19,15 @@ class CommentRepository extends ServiceEntityRepository
         parent::__construct($registry, Comment::class);
     }
 
+    public function findAllFlagedComments()
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.flag = :flag')
+            ->setParameter('flag', 1)
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return Comment[] Returns an array of Comment objects
 //     */
