@@ -1,11 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Ticket{% endblock %}
+{% block title %}Nouveau billet{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/tickets.css') }}">
+{% endblock %}
 
 {% block body %}
-    <h1>Create new Ticket</h1>
-
-    {{ include('ticket/comment_form.html.twig') }}
-
-    <a href="{{ path('home') }}">back to list</a>
+    <div class="content snow">
+        <h1 class="text-center">Nouveau billet</h1>
+        <div class="row">
+            <div id="ticket" class="col-md-10 offset-md-1">
+                {{ include('ticket/_form.html.twig') }}
+            </div>
+        </div>
+        <p class="text-center"><a class="btn custom" href="{{ path('home') }}">Accueil</a></p>
+    </div>
 {% endblock %}

@@ -17,37 +17,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class TicketController extends Controller
 {
     /**
-     * @Route("/new", name="ticket_new", methods="GET|POST")
-     */
-    public function new(Request $request, FileUploader $fileUploader): Response
-    {
-        $ticket = new Ticket();
-        $form = $this->createForm(TicketType::class, $ticket);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $image = $ticket->getImage();
-            $imageName = $fileUploader->upload($image);
-            $ticket->setImage($imageName);
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($ticket);
-            $em->flush();
-
-            return $this->redirectToRoute('home');
-        }
-
-        return $this->render('ticket/new.html.twig', [
-            'ticket' => $ticket,
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
      * @Route("/{id}", name="ticket_show", methods="GET")
      */
     public function show(Ticket $ticket): Response
     {
-        return $this->render('ticket/show.html.twig', ['ticket' => $ticket]);
+        return $this->render('ticket/ticket.html.twig', ['ticket' => $ticket]);
     }
 
     /**

@@ -21,7 +21,7 @@ class HomeController extends Controller
      */
     public function index(TicketRepository $ticketRepository): Response
     {
-        return $this->render('ticket/index.html.twig', ['tickets' => $ticketRepository->findAllPublishedTicketsWithNumberOfComments()]);
+        return $this->render('alaska/index.html.twig', ['tickets' => $ticketRepository->findAllPublishedTicketsWithNumberOfComments()]);
     }
 
     /**
@@ -47,7 +47,7 @@ class HomeController extends Controller
                 'id' => $ticket->getId()
             ]);
         }
-        return $this->render('ticket/show.html.twig', [
+        return $this->render('alaska/ticket.html.twig', [
             'ticket' => $ticket,
             'form' => $form->createView()
         ]);

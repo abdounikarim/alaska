@@ -5,7 +5,7 @@
 {% block body %}
     <h1>Edit Ticket</h1>
 
-    {{ include('ticket/comment_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('ticket/_form.html.twig', {'button_label': 'Update'}) }}
 
     <a href="{{ path('home') }}">back to list</a>
 

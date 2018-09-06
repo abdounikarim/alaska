@@ -3,9 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Comment;
+use App\Entity\Ticket;
+use App\Form\TicketType;
 use App\Repository\CommentRepository;
 use App\Repository\TicketRepository;
 use App\Repository\UserRepository;
+use App\Service\FileUploader;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -25,6 +28,32 @@ class AdminController extends Controller
             'tickets' => $ticketRepository->findAll(),
             'comments' => $commentRepository->findAllFlagedComments(),
             'users' => $userRepository->findAll(),
+        ]);
+    }
+
+    /**
+     * @Route("/ticket/new", name="ticket_new", methods="GET|POST")
+     */
+    public function newTicket(Request $request, FileUploader $fileUploader): Response
+    {
+        $ticket = new Ticket();
+        $form = $this->createForm(TicketType::class, $ticket);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $image = $ticket->getImage();
+            $imageName = $fileUploader->upload($image);
+            $ticket->setImage($imageName);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($ticket);
+            $em->flush();
+
+            return $this->redirectToRoute('home');
+        }
+
+        return $this->render('ticket/new.html.twig', [
+            'ticket' => $ticket,
+            'form' => $form->createView(),
         ]);
     }
 
