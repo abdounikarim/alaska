@@ -1,4 +1,13 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
+    {{ form_row(form.title) }}
+    {{ form_row(form.content) }}
+    {% if add is defined %}
+        {{ form_row(form.image, {'attr' : {'required': true }}) }}
+    {% else %}
+        {{ form_row(form.image) }}
+    {% endif %}
+    {{ form_row(form.alt) }}
+    {{ form_row(form.published) }}
+    {{ form_row(form.author) }}
     <button class="btn custom">{{ button_label|default('Enregistrer') }}</button>
 {{ form_end(form) }}
