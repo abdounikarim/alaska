@@ -23,7 +23,11 @@ class TicketType extends AbstractType
                 'label' => 'Titre'
             ])
             ->add('content', TextareaType::class, [
-                'label' => 'Contenu'
+                'label' => 'Contenu',
+                'attr' => [
+                    'class' => 'tinymce'
+                ],
+                'required' => false
             ])
             ->add('image', FileType::class, [
                 'label' => 'Image',
