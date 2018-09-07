@@ -9,7 +9,9 @@
         <div id="login" class="col-md-10 offset-md-1">
 
             {% if error %}
-                <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                <div class="alert alert-danger">
+                    Identifiants incorrects
+                </div>
             {% endif %}
 
             <form action="{{ path('login') }}" method="post">
