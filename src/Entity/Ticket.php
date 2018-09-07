@@ -21,8 +21,8 @@ class Ticket
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message="Le champ ne doit pas être vide")
-     * @Assert\Length(min="2", minMessage="Le champ doit comporter au moins 2 caractères", max="255", maxMessage="Le champ doit comporter un maximum de 255 caractères")
+     * @Assert\NotBlank(message="Le champ ne doit pas être vide", groups={"add","edit"})
+     * @Assert\Length(min="2", minMessage="Le champ doit comporter au moins 2 caractères", max="255", maxMessage="Le champ doit comporter un maximum de 255 caractères", groups={"add", "edit"})
      */
     private $title;
 
@@ -48,14 +48,15 @@ class Ticket
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Image()
+     * @Assert\Image(groups={"add"})
+     * @Assert\NotBlank(message="Merci de renseigner une image", groups={"add"})
      */
     private $image;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message="Le champ ne doit pas être vide")
-     * @Assert\Length(min="2", minMessage="Le champ doit comporter au moins 2 caractères", max="255", maxMessage="Le champ doit comporter un maximum de 255 caractères")
+     * @Assert\NotBlank(message="Le champ ne doit pas être vide", groups={"add", "edit"})
+     * @Assert\Length(min="2", minMessage="Le champ doit comporter au moins 2 caractères", max="255", maxMessage="Le champ doit comporter un maximum de 255 caractères", groups={"add", "edit"})
      */
     private $alt;
 
@@ -84,7 +85,7 @@ class Ticket
         return $this->title;
     }
 
-    public function setTitle(string $title): self
+    public function setTitle($title): self
     {
         $this->title = $title;
 
@@ -96,7 +97,7 @@ class Ticket
         return $this->content;
     }
 
-    public function setContent(string $content): self
+    public function setContent($content): self
     {
         $this->content = $content;
 

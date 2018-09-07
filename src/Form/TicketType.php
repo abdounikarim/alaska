@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class TicketType extends AbstractType
@@ -24,10 +25,10 @@ class TicketType extends AbstractType
             ])
             ->add('content', TextareaType::class, [
                 'label' => 'Contenu',
-                'attr' => [
-                    'class' => 'tinymce'
-                ],
-                'required' => false
+                    'attr' => [
+                        'class' => 'tinymce'
+                    ],
+                    'required' => false
             ])
             ->add('image', FileType::class, [
                 'label' => 'Image',
@@ -53,6 +54,14 @@ class TicketType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Ticket::class,
+            'validation_groups' => function (FormInterface $form) {
+                $data = $form->getData();
+                if($data->getId() != null)
+                {
+                    return ['edit'];
+                }
+                return ['add'];
+            }
         ]);
     }
 }
