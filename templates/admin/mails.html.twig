@@ -1,0 +1,28 @@
+<div class="tab-pane fade" id="mails" role="tabpanel" aria-labelledby="mails-tab">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nom</th>
+            <th>Email</th>
+            <th>Sujet</th>
+            <th>Message</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for mail in mails %}
+            <tr>
+                <td>{{ mail.id }}</td>
+                <td>{{ mail.name }}</td>
+                <td>{{ mail.email }}</td>
+                <td>{{ mail.subject }}</td>
+                <td>{{ mail.message }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">Aucun mail reçu</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>

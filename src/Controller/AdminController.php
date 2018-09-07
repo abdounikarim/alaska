@@ -9,6 +9,7 @@ use App\Form\TicketType;
 use App\Form\UserPasswordType;
 use App\Form\UserType;
 use App\Repository\CommentRepository;
+use App\Repository\ContactRepository;
 use App\Repository\TicketRepository;
 use App\Repository\UserRepository;
 use App\Service\FileUploader;
@@ -26,12 +27,13 @@ class AdminController extends Controller
     /**
      * @Route("/", name="admin")
      */
-    public function index(TicketRepository $ticketRepository, CommentRepository $commentRepository, UserRepository $userRepository)
+    public function index(TicketRepository $ticketRepository, CommentRepository $commentRepository, UserRepository $userRepository, ContactRepository $contactRepository)
     {
         return $this->render('admin/index.html.twig', [
             'tickets' => $ticketRepository->findAll(),
             'comments' => $commentRepository->findAllFlagedComments(),
             'users' => $userRepository->findAll(),
+            'mails' => $contactRepository->findAll()
         ]);
     }
 
