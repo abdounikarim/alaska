@@ -9,8 +9,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity
- * @UniqueEntity(fields="email", message="Email already taken")
- * @UniqueEntity(fields="username", message="Username already taken")
+ * @UniqueEntity(fields="email", message="Email already taken", groups={"user_edit"})
+ * @UniqueEntity(fields="username", message="Username already taken", groups={"user_edit"})
  */
 class User implements UserInterface
 {
@@ -23,19 +23,19 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
-     * @Assert\NotBlank()
-     * @Assert\Email()
+     * @Assert\NotBlank(groups={"user_edit"})
+     * @Assert\Email(groups={"user_edit"})
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(groups={"user_edit"})
      */
     private $username;
 
     /**
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(groups={"user_edit_password"})
      * @Assert\Length(max=4096)
      */
     private $plainPassword;
