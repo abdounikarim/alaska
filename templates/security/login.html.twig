@@ -1,22 +1,29 @@
-{# templates/security/login.html.twig #}
-{# ... you will probably extend your base template, like base.html.twig #}
+{% extends 'base.html.twig' %}
 
-{% if error %}
-    <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-{% endif %}
+{% block title %}Connexion{% endblock %}
 
-<form action="{{ path('login') }}" method="post">
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="_username" value="{{ last_username }}" />
+{% block body %}
+<div class="content snow">
+    <h1 class="text-center">Connexion</h1>
+    <div class="row">
+        <div id="login" class="col-md-10 offset-md-1">
 
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="_password" />
+            {% if error %}
+                <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
 
-    {#
-        If you want to control the URL the user
-        is redirected to on success (more details below)
-        <input type="hidden" name="_target_path" value="/account" />
-    #}
-
-    <button type="submit">login</button>
-</form>
+            <form action="{{ path('login') }}" method="post">
+                <div class="form-group">
+                    <label for="username">Pseudo:</label>
+                    <input class="form-control" type="text" id="username" name="_username" value="{{ last_username }}" />
+                </div>
+                <div class="form-group">
+                    <label for="password">Mot de passe:</label>
+                    <input class="form-control" type="password" id="password" name="_password" />
+                </div>
+                <button class="btn custom" type="submit">Connexion</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
