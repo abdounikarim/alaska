@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Comment;
 use App\Entity\Ticket;
+use App\Entity\User;
 use App\Form\TicketType;
+use App\Form\UserType;
 use App\Repository\CommentRepository;
 use App\Repository\TicketRepository;
 use App\Repository\UserRepository;
@@ -138,5 +140,31 @@ class AdminController extends Controller
         $this->addFlash('comment_delete', 'Le commentaire a été supprimé');
 
         return $this->redirectToRoute('admin');
+    }
+
+    /**
+     * @Route("/user/{id}/edit", name="user_edit")
+     */
+    public function editUser(Request $request, User $user, FileUploader $fileUploader)
+    {
+        $imageOld = $user->getImage();
+        $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()) {
+            $image = $user->getImage();
+            if($image != null) {
+                $imageName = $fileUploader->upload($image);
+                $user->setImage($imageName);
+            } else {
+                $user->setImage($imageOld);
+            }
+            $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('edit_user', 'L\'utilisateur a bien été modifié');
+
+            return $this->redirectToRoute('admin');
+        }
+        return $this->render('admin/user_edit.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 }

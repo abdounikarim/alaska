@@ -18,7 +18,7 @@
                 <td>{{ user.description|slice(0,500) }}...</td>
                 <td>
                     <a href="{{ path('about') }}">Voir</a>
-                    <a href="#">Modifier</a>
+                    <a href="{{ path('user_edit', {'id': user.id}) }}">Modifier</a>
                     <a href="#">Changer mot de passe</a>
                 </td>
             </tr>

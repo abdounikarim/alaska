@@ -30,6 +30,11 @@
                 {{ message }}
             </div>
         {% endfor %}
+        {% for message in app.flashes('edit_user') %}
+            <div class="alert alert-warning flash-notice">
+                {{ message }}
+            </div>
+        {% endfor %}
         <div class="row">
             <div id="admin" class="col-md-10 offset-md-1">
                 <ul class="nav nav-tabs" id="myTab" role="tablist">

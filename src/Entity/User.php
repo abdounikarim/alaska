@@ -145,16 +145,20 @@ class User implements UserInterface
         $this->roles = $roles;
     }
 
-    public function getImage(): ?string
+    /**
+     * @return mixed
+     */
+    public function getImage()
     {
         return $this->image;
     }
 
-    public function setImage(string $image): self
+    /**
+     * @param mixed $image
+     */
+    public function setImage($image): void
     {
         $this->image = $image;
-
-        return $this;
     }
 
     public function getDescription(): ?string

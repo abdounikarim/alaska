@@ -1,0 +1,7 @@
+{{ form_start(form) }}
+    {{ form_row(form.email) }}
+    {{ form_row(form.username) }}
+    {{ form_row(form.image) }}
+    {{ form_row(form.description) }}
+<button class="btn custom">{{ button_label|default('Enregistrer') }}</button>
+{{ form_end(form) }}
