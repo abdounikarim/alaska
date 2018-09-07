@@ -103,6 +103,10 @@ class AdminController extends Controller
     {
         if ($this->isCsrfTokenValid('delete'.$ticket->getId(), $request->request->get('_token'))) {
             $em = $this->getDoctrine()->getManager();
+            foreach ($ticket->getComments() as $comment)
+            {
+                $em->remove($comment);
+            }
             $em->remove($ticket);
             $em->flush();
         }
