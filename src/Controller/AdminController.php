@@ -6,6 +6,7 @@ use App\Entity\Comment;
 use App\Entity\Ticket;
 use App\Entity\User;
 use App\Form\TicketType;
+use App\Form\UserPasswordType;
 use App\Form\UserType;
 use App\Repository\CommentRepository;
 use App\Repository\TicketRepository;
@@ -15,6 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * @Route("/admin")
@@ -164,6 +166,30 @@ class AdminController extends Controller
             return $this->redirectToRoute('admin');
         }
         return $this->render('admin/user_edit.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/user/{id}/editpass", name="user_edit_pass")
+     */
+    public function editUserPassword(Request $request, User $user, UserPasswordEncoderInterface $userPasswordEncoder)
+    {
+        $form = $this->createForm(UserPasswordType::class, $user);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()) {
+            $user = $this->getUser();
+            $pass = $user->getPlainPassword();
+            $password = $userPasswordEncoder->encodePassword($user, $pass);
+            $user->setPassword($password);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
+            $this->addFlash('edit_user_pass', 'Le mot de passe de l\'utilisateur a bien été modifié');
+
+            return $this->redirectToRoute('admin');
+        }
+        return $this->render('admin/user_edit_pass.html.twig', [
             'form' => $form->createView()
         ]);
     }

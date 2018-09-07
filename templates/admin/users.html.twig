@@ -19,7 +19,7 @@
                 <td>
                     <a href="{{ path('about') }}">Voir</a>
                     <a href="{{ path('user_edit', {'id': user.id}) }}">Modifier</a>
-                    <a href="#">Changer mot de passe</a>
+                    <a href="{{ path('user_edit_pass', {'id': user.id}) }}">Changer mot de passe</a>
                 </td>
             </tr>
         {% else %}
