@@ -1,0 +1,32 @@
+<div class="tab-pane fade" id="users" role="tabpanel" aria-labelledby="users-tab">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Identifiant</th>
+            <th>Image</th>
+            <th>Description</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.username }}</td>
+                <td><img src="{{ asset('images/' ~ user.image) }}"></td>
+                <td>{{ user.description|slice(0,500) }}...</td>
+                <td>
+                    <a href="{{ path('about') }}">Voir</a>
+                    <a href="#">Modifier</a>
+                    <a href="#">Changer mot de passe</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">Aucun utilisateur trouvé</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>

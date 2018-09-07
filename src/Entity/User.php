@@ -73,7 +73,13 @@ class User implements UserInterface
         $this->roles = array('ROLE_USER');
     }
 
-    // other properties and methods
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
     public function getEmail()
     {
