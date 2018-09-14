@@ -83,6 +83,7 @@ class AdminController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $ticket->setUpdatedAt(new \DateTime());
             $image = $ticket->getImage();
             if($image != null) {
                 $imageName = $fileUploader->upload($image);
