@@ -1,6 +1,6 @@
 body{
     font-family: 'Ubuntu Condensed';
-    background: url("../images/666936496831.png") no-repeat fixed;
+    background: url("../images/666936496831.png") repeat-y fixed;
     color: #f5f3f3;
 }
 h1{
@@ -75,6 +75,7 @@ img{
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-direction: column;
 }
 .ticket_header p{
     font-style: italic;
@@ -105,5 +106,8 @@ textarea.form-control{
 @media (min-width: 768px) {
     body{
         background-size: 100%;
+    }
+    .ticket_header, .ticket_infos {
+        flex-direction: row;
     }
 }
