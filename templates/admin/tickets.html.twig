@@ -15,7 +15,7 @@
                 <td>{{ ticket.id }}</td>
                 <td>{{ ticket.title }}</td>
                 <td><img src="{{ asset('images/' ~ ticket.image) }}"></td>
-                <td>{{ ticket.content }}</td>
+                <td>{{ ticket.content|raw }}</td>
                 <td>
                     <a href="{{ path('ticket_show', {'id': ticket.id}) }}">Voir</a>
                     <a href="{{ path('ticket_edit', {'id': ticket.id}) }}">Modifier</a>
